@@ -1,0 +1,59 @@
+name: crudfirestore
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+    
+  flutter_localizations:
+    sdk: flutter
+  async: ^2.8.1
+  cupertino_icons: ^1.0.2
+  cloud_firestore: ^3.1.17
+  firebase_core: ^1.17.1
+  flutter_tindercard: ^0.2.0
+  bloc: ^8.0.3
+  flutter_bloc: ^8.0.1
+  equatable: ^2.0.3
+  firebase_database: ^9.0.15
+  firebase_auth: ^3.3.19
+  google_sign_in: ^5.3.3
+  shared_preferences: ^2.0.15
+  sqflite: ^2.0.2+1
+  flutter_svg: ^1.1.0
+  country_code_picker: ^2.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/girls/
+    - assets/icons/
+  fonts:
+     - family: Muli
+       fonts:
+         - asset: assets/fonts/muli/Muli.ttf
+         - asset: assets/fonts/muli/Muli-Bold.ttf
+           weight: 700
+         - asset: assets/fonts/muli/Muli-Light.ttf
+           weight: 300
+    # - family: Poppins
+    #   fonts:
+    #     - asset: assets/fonts/poppins/Poppins-Black.ttf
+    #     - asset: assets/fonts/poppins/Poppins-Bold.ttf
+    #     - asset: assets/fonts/poppins/Poppins-ExtraBold.ttf
+    #     - asset: assets/fonts/poppins/Poppins-ExtraLight.ttf
+    #     - asset: assets/fonts/poppins/Poppins-Light.ttf
+    #     - asset: assets/fonts/poppins/Poppins-Medium.ttf
+    #     - asset: assets/fonts/poppins/Poppins-Regular.ttf
+    #     - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
+    #     - asset: assets/fonts/poppins/Poppins-Thin.ttf
