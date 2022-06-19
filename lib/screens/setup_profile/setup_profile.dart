@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:crudfirestore/screens/sign_in/cubits/sign_in_cubit.dart';
-import 'package:crudfirestore/views/widgets/button_default.dart';
+import 'package:crudfirestore/widgets/button_default.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../models/app_user.dart';
@@ -8,7 +8,7 @@ import '../../utils/app_palette.dart';
 import '../../utils/constants.dart';
 import '../../utils/helpers.dart';
 import '../../utils/sizeconfig.dart';
-import '../../views/widgets/avatar.dart';
+import '../../widgets/avatar.dart';
 
 class SetupProfileScreen extends StatefulWidget {
   SetupProfileScreen({Key? key}) : super(key: key);
