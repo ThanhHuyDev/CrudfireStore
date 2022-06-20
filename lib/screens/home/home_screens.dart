@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../utils/sizeconfig.dart';
 class HomeScreens extends StatefulWidget {
-  const HomeScreens({Key? key}) : super(key: key);
+  HomeScreens({Key? key}) : super(key: key);
   @override
   State<HomeScreens> createState() => _HomeScreensState();
 }

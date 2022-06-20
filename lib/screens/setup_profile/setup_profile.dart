@@ -241,7 +241,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
             Avatar(
               size: 110,
               photoUrl: photoUrl ??
-                  'http://chiase24.com/wp-content/uploads/2022/02/Tong-hop-hinh-anh-gai-xinh-de-thuong-cute-nhat-1.jpg',
+                  'https://scontent.fdad5-1.fna.fbcdn.net/v/t39.30808-6/285999843_3163315347222459_2748449376631489930_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=4Rnw1kjdkIsAX-e41LJ&_nc_ht=scontent.fdad5-1.fna&oh=00_AT8GoDsWq-cO0rIJNgH6-4Y77A3O6DeXtKMANlLk0bHZRQ&oe=62B5AEC4g',
             ),
             Positioned(
               bottom: -4,

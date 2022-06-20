@@ -1,36 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
-
-import '../../../../database/data.dart';
-
 class ProfileFriend extends StatefulWidget {
-  const ProfileFriend({Key? key, required this.index}) : super(key: key);
-  final int index;
+  const ProfileFriend({Key? key, required this.documentSnapshot}) : super(key: key);
+  final DocumentSnapshot documentSnapshot;
 
   @override
-  State<ProfileFriend> createState() => _ProfileFriendState(index: index);
+  State<ProfileFriend> createState() => _ProfileFriendState(documentSnapshot: documentSnapshot);
 }
 
 class _ProfileFriendState extends State<ProfileFriend> {
-  final int index;
-  List itemsTemp = [];
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      itemsTemp = explore_json;
-    });
-  }
-
-  _ProfileFriendState({required this.index});
+   final DocumentSnapshot documentSnapshot;
+   _ProfileFriendState({required this.documentSnapshot});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: [
-            Image.asset(itemsTemp[index]['img']),
-            StackInfomation(index: index)
+            Image.network(documentSnapshot['imageAvatar']),
+            StackInfomation(documentSnapshot: documentSnapshot)
           ],
         ),
       ),
@@ -39,8 +28,8 @@ class _ProfileFriendState extends State<ProfileFriend> {
 }
 
 class StackInfomation extends StatelessWidget {
-  StackInfomation({Key? key, required this.index}) : super(key: key);
-  int index;
+  const StackInfomation({Key? key, required this.documentSnapshot}) : super(key: key);
+  final DocumentSnapshot documentSnapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +54,7 @@ class StackInfomation extends StatelessWidget {
                 //Container icon
                 const ButtonInfo(),
                 //Container Name
-                NameInfo(index: index),
+                NameInfo(documentSnapshot: documentSnapshot),
                 //Container Location
                 const Location(),
                 //Container About
@@ -73,7 +62,7 @@ class StackInfomation extends StatelessWidget {
                 //Container Interests
                 const Interests(),
                 //Container Gallery
-                const Gallery(),
+                Gallery(documentSnapshot: documentSnapshot,),
               ],
             ),
           ),
@@ -164,12 +153,10 @@ class ButtonInfo extends StatelessWidget {
 }
 
 class NameInfo extends StatelessWidget {
-  NameInfo({Key? key, required this.index}) : super(key: key);
-  int index;
-  List itemsTemp = [];
+  const NameInfo({Key? key, required this.documentSnapshot}) : super(key: key);
+  final DocumentSnapshot documentSnapshot;
   @override
   Widget build(BuildContext context) {
-    itemsTemp = explore_json;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 8.0),
       child: Row(
@@ -179,8 +166,8 @@ class NameInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                itemsTemp[index]['name'] + " " + itemsTemp[index]['age'],
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),
+                documentSnapshot['firstName'] + " " + documentSnapshot['dateOfBirthTimeMillis'].toString(),
+                style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),
               ),
               const Text(
                 'Proffesional model',
@@ -193,7 +180,7 @@ class NameInfo extends StatelessWidget {
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(15.0)),
-            child: Image.asset('assets/images/vector4.png'),
+            child: Image.asset('images/vector4.png'),
           ),
         ],
       ),
@@ -292,10 +279,8 @@ class About extends StatelessWidget {
 }
 
 class Gallery extends StatelessWidget {
-  const Gallery({
-    Key? key,
-  }) : super(key: key);
-
+  const Gallery({Key? key, required this.documentSnapshot}) : super(key: key);
+  final DocumentSnapshot documentSnapshot;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -332,8 +317,8 @@ class Gallery extends StatelessWidget {
                     crossAxisSpacing: 5.0,
                     mainAxisSpacing: 10.0),
                 itemBuilder: (context, index) {
-                  return Image.asset(
-                    'assets/images/gallery.png',
+                  return Image.network(
+                    documentSnapshot['imageAvatar'],
                     fit: BoxFit.fill,
                   );
                 }),

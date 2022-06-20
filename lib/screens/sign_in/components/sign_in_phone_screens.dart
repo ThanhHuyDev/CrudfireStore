@@ -1,10 +1,11 @@
-import 'package:crudfirestore/screens/home/home.dart';
 import 'package:crudfirestore/screens/setup_profile/setup_profile.dart';
 import 'package:crudfirestore/screens/sign_in/components/phone_auth_view.dart';
 import 'package:crudfirestore/screens/sign_in/components/verify_phonenumber.dart';
 import 'package:crudfirestore/screens/sign_in/cubits/sign_in_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../home/home_screens.dart';
 
 class SignInPhoneScreens extends StatefulWidget {
   const SignInPhoneScreens({Key? key}) : super(key: key);
@@ -119,7 +120,7 @@ class _SignInPhoneScreensState extends State<SignInPhoneScreens>
                     ],
                   )));
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const HomeScreens()));
+                    MaterialPageRoute(builder: (context) => HomeScreens()));
               }
             },
             child: TabBarView(

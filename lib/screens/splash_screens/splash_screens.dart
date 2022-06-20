@@ -1,7 +1,7 @@
-import 'package:crudfirestore/screens/home/home.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/constants.dart';
+import '../home/home_screens.dart';
 
 class SplashScreens extends StatefulWidget {
   const SplashScreens({Key? key}) : super(key: key);
@@ -70,7 +70,7 @@ class _SplashScreensState extends State<SplashScreens>
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreens()));
+                          builder: (context) => HomeScreens()));
                 },
                 child: Text(
                   AppConstants.appName,

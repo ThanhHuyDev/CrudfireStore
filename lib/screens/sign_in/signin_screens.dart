@@ -1,3 +1,4 @@
+import 'package:crudfirestore/screens/home/home_screens.dart';
 import 'package:crudfirestore/screens/sign_in/cubits/sign_in_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -112,7 +113,7 @@ class _SignInScreensState extends State<SignInScreens>
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 const LoginAccount(),
-                SetupProfileScreen(),
+                HomeScreens(),
               ],
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:crudfirestore/screens/setting_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import '../../../../database/data.dart';
@@ -60,24 +61,29 @@ class _AccountPageState extends State<AccountPage> {
                   children: [
                     Column(
                       children: [
-                        Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                blurRadius: 15,
-                                spreadRadius: 10,
-                              ),
-                            ],
-                          ),
-                          child: Icon(
-                            Icons.settings,
-                            size: 35,
-                            color: Colors.grey.withOpacity(0.5),
+                        GestureDetector(
+                          onTap: (() {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const SettingsScreens()));
+                          }),
+                          child: Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  blurRadius: 15,
+                                  spreadRadius: 10,
+                                ),
+                              ],
+                            ),
+                            child: Icon(
+                              Icons.settings,
+                              size: 35,
+                              color: Colors.grey.withOpacity(0.5),
+                            ),
                           ),
                         ),
                         const SizedBox(height: 10),

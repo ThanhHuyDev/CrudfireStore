@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
               builder: (context, state) {
                 // return const SplashScreens();
             if (state is Authenticated) {
-              return const HomeScreenss();
+              return HomeScreens();
             } else if (state is UnAuthenticated) {
               return const SignInScreens();
             } else {
