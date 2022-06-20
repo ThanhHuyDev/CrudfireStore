@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../utils/app_palette.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/sizeconfig.dart';
-import '../../../views/widgets/app_textfield.dart';
+import '../../../widgets/app_textfield.dart';
 
 class VerifyPhone extends StatefulWidget {
   VerifyPhone({Key? key}) : super(key: key);

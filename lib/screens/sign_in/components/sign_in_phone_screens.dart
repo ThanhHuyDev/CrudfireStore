@@ -1,4 +1,4 @@
-import 'package:crudfirestore/screens/home.dart';
+import 'package:crudfirestore/screens/home/home.dart';
 import 'package:crudfirestore/screens/setup_profile/setup_profile.dart';
 import 'package:crudfirestore/screens/sign_in/components/phone_auth_view.dart';
 import 'package:crudfirestore/screens/sign_in/components/verify_phonenumber.dart';

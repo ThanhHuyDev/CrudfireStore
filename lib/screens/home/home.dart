@@ -3,7 +3,7 @@ import 'package:crudfirestore/screens/setting_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 
-import '../utils/sizeconfig.dart';
+import '../../utils/sizeconfig.dart';
 
 class HomeScreens extends StatefulWidget {
   const HomeScreens({Key? key}) : super(key: key);

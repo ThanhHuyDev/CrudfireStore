@@ -2,7 +2,6 @@
 import 'package:crudfirestore/blocs/authentication/authentication_bloc.dart';
 import 'package:crudfirestore/blocs/settings/app_settings_bloc.dart';
 import 'package:crudfirestore/repositories/authentication_repositories.dart';
-import 'package:crudfirestore/screens/home.dart';
 import 'package:crudfirestore/screens/sign_in/signin_screens.dart';
 import 'package:crudfirestore/screens/splash_screens/splash_screens.dart';
 import 'package:crudfirestore/utils/app_palette.dart';
@@ -10,6 +9,8 @@ import 'package:crudfirestore/utils/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'screens/home/home_screens.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
               builder: (context, state) {
                 // return const SplashScreens();
             if (state is Authenticated) {
-              return  const HomeScreens();
+              return const HomeScreenss();
             } else if (state is UnAuthenticated) {
               return const SignInScreens();
             } else {

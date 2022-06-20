@@ -19,7 +19,8 @@ class SetupProfileScreen extends StatefulWidget {
 
 class _SetupProfileScreenState extends State<SetupProfileScreen> {
   File? image;
-  String? photoUrl ='http://chiase24.com/wp-content/uploads/2022/02/Tong-hop-hinh-anh-gai-xinh-de-thuong-cute-nhat-1.jpg';
+  String? photoUrl =
+      'http://chiase24.com/wp-content/uploads/2022/02/Tong-hop-hinh-anh-gai-xinh-de-thuong-cute-nhat-1.jpg';
 
   List gender = ["male", "female"];
 
@@ -40,23 +41,23 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
   final emailController = TextEditingController();
   final bioController = TextEditingController();
 
-  // @override
-  // void didChangeDependencies() {
-  //   populateView();
-  //   super.didChangeDependencies();
-  // }
+  @override
+  void didChangeDependencies() {
+    populateView();
+    super.didChangeDependencies();
+  }
 
-  // void populateView() {
-  //   String name = context.read<SignInCubit>().state.account?.displayName ?? '';
-  //   List<String> nameSplit = name.split(' ');
-  //   firstNameController.text = nameSplit[0];
-  //   nameSplit.removeAt(0);
-  //   lastNameController.text = nameSplit.join(' ');
-  //   emailController.text =
-  //       context.read<SignInCubit>().state.account?.email ?? '';
-  //   photoUrl = context.read<SignInCubit>().state.account?.photoUrl;
-  //   // dateOfBithController.text = context.read<SignInCubit>().state.account?.
-  // }
+  void populateView() {
+    String name = context.read<SignInCubit>().state.user?.displayName ?? '';
+    List<String> nameSplit = name.split(' ');
+    firstNameController.text = nameSplit[0];
+    nameSplit.removeAt(0);
+    lastNameController.text = nameSplit.join(' ');
+    emailController.text =
+        context.read<SignInCubit>().state.user?.email ?? '';
+    photoUrl = context.read<SignInCubit>().state.user?.photoURL ?? '';
+    // dateOfBithController.text = context.read<SignInCubit>().state.account?.
+  }
 
   void showCalender({required BuildContext context}) async {
     final DateTime? picked = await showDatePicker(
@@ -141,7 +142,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                       left: 20,
                       top: 15,
                       child: GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           showCalender(context: context);
                         },
                         child: Icon(
@@ -187,7 +188,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
             ButtonDefault(
               press: (() {
                 String userId =
-                    '${context.read<SignInCubit>().state.country?.code}${context.read<SignInCubit>().state.phoneNumber}';
+                    '+84${context.read<SignInCubit>().state.phoneNumber}';
                 userId.replaceAll(' ', '');
                 AppUser user = AppUser(
                   firstName: firstNameController.text,

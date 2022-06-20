@@ -1,8 +1,8 @@
 import 'package:crudfirestore/utils/app_palette.dart';
 class AppConstants {
-  static const double padding = 20.0;
+  static const double padding = 30.0;
 
-  static const String appName = 'CrudFireStore';
+  static const String appName = 'Slove';
 
   static const Map<AppTheme, String> themeStrings = {
     AppTheme.lightBlueTheme: 'LIGHT_BLUE_THEME',

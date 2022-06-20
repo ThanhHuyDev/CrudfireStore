@@ -1,9 +1,11 @@
 import 'package:crudfirestore/screens/sign_in/components/sign_in_phone_screens.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../utils/app_palette.dart';
+import '../../../utils/constants.dart';
 import '../../../utils/sizeconfig.dart';
 import '../cubits/sign_in_cubit.dart';
 
@@ -14,6 +16,7 @@ class LoginAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
     SizeConfig.init(context);
     return Container(
       width: double.infinity,
@@ -137,20 +140,70 @@ class LoginAccount extends StatelessWidget {
                   )),
             ),
             SizedBox(
-              height: getsizeHeight(100),
+              height: getsizeHeight(120),
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SignInPhoneScreens()));
+                //   Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //           builder: (context) => const SignInPhoneScreens()));
               },
-              child: Text(
-                'Don\'t have account? SignUp',
-                style:
-                    TextStyle(color: Colors.white, fontSize: getsizeHeight(16)),
-              ),
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Bạn đồng ý với ',
+                          style: themeData.textTheme.subtitle2?.copyWith(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 17.0,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'chính sách bảo mật ',
+                          style: themeData.textTheme.subtitle2?.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17.0,
+                            color: themeData.primaryColorLight,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushNamed(
+                                  context, "/terms_and_conditions");
+                            },
+                        ),
+                        TextSpan(
+                          text: '& ',
+                          style: themeData.textTheme.subtitle2?.copyWith(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 17.0,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'điều khoản sử dụng ',
+                          style: themeData.textTheme.subtitle2?.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17.0,
+                            color: themeData.primaryColorLight,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushNamed(context, "/privacy_policy");
+                            },
+                        ),
+                        TextSpan(
+                          text: 'của ${AppConstants.appName}',
+                          style: themeData.textTheme.subtitle2?.copyWith(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 17.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
             ),
           ],
         ),

@@ -1,4 +1,4 @@
-import 'package:crudfirestore/screens/home.dart';
+import 'package:crudfirestore/screens/home/home.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/constants.dart';
