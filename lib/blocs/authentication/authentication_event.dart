@@ -6,7 +6,3 @@ class IsAuthenticated extends AuthenticationEvent{
   @override
   List<Object?> get props => [];
 }
-class IsLogout extends AuthenticationEvent{
-  @override
-  List<Object?> get props => [];
-}

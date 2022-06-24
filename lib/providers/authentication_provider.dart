@@ -16,19 +16,15 @@ class AuthenticationProvider extends BaseAuthenticationProvider {
   }
 
   @override
-  Future<User?> signInWithGoogle() async {
-    final GoogleSignInAccount? account = await _googleSignIn.signIn();
-    if (account != null) {
-      final GoogleSignInAuthentication authentication =
-          await account.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-          idToken: authentication.idToken,
-          accessToken: authentication.accessToken);
-      return _firebaseAuth
-          .signInWithCredential(credential)
-          .then((value) => value.user);
-    }
-    return null;
+  Future<GoogleSignInAccount?> signInWithGoogle() async {
+      final GoogleSignInAccount? account = await _googleSignIn.signIn();
+        final GoogleSignInAuthentication authentication =
+            await account!.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+            idToken: authentication.idToken,
+            accessToken: authentication.accessToken);
+        await _firebaseAuth.signInWithCredential(credential);
+       return account;
   }
 
   @override
@@ -80,30 +76,34 @@ class AuthenticationProvider extends BaseAuthenticationProvider {
       _preferences.setString('userId', firebaseUser?.uid ?? '');
     });
   }
-  
+
   @override
   Future<void> signOut() async {
     return await _firebaseAuth.signOut();
   }
-  
+
   @override
-  Future<void> updateUserPicture(String imageName) async{
+  Future<void> updateUserPicture(String imageName) async {
     String downloadUrl = await StorageRepository().getDownloadURL(imageName);
     final firebaseUser = _firebaseAuth.currentUser;
     return FirebaseFirestore.instance
         .collection('users')
         .doc(firebaseUser?.uid)
-        .update({'imageUrl': FieldValue.arrayUnion([downloadUrl]),
-        });
+        .update({
+      'imageUrl': FieldValue.arrayUnion([downloadUrl]),
+    });
   }
+
   @override
-  Future<void> updateUserAvatar(String imageAvatar) async{
-    String downloadUrlAvatar = await StorageRepository().getDownloadURLAvatar(imageAvatar);
+  Future<void> updateUserAvatar(String imageAvatar) async {
+    String downloadUrlAvatar =
+        await StorageRepository().getDownloadURLAvatar(imageAvatar);
     final firebaseUser = _firebaseAuth.currentUser;
     return FirebaseFirestore.instance
         .collection('users')
         .doc(firebaseUser?.uid)
-        .update({'imageAvatar': downloadUrlAvatar,
-        });
+        .update({
+      'imageAvatar': downloadUrlAvatar,
+    });
   }
 }

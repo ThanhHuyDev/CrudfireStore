@@ -54,16 +54,16 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
   }
 
   void populateView() {
-    String name = context.read<SignInCubit>().state.user?.displayName ?? '';
+    String name = context.read<SignInCubit>().state.account?.displayName ?? '';
     List<String> nameSplit = name.split(' ');
     firstNameController.text = nameSplit[0];
     nameSplit.removeAt(0);
     lastNameController.text = nameSplit.join(' ');
     emailController.text =
-        context.read<SignInCubit>().state.user?.email ?? '';
-    emailController.text =
-        context.read<SignInCubit>().state.user?.phoneNumber ?? '';
-    photoUrl = context.read<SignInCubit>().state.user?.photoURL ?? '';
+        context.read<SignInCubit>().state.account?.email ?? '';
+    phoneNumberController.text =
+        context.read<SignInCubit>().state.appUser?.phoneNumber ?? '';
+    photoUrl = context.read<SignInCubit>().state.account?.photoUrl ?? '';
     // dateOfBithController.text = context.read<SignInCubit>().state.account?.
   }
 

@@ -45,7 +45,7 @@ final formLastNameInputdecoration = InputDecoration(
   focusedBorder: outlineInputBorder1(),
   border: outlineInputBorder1(),
   labelText: "Last Name",
-  hintText: 'Peterson',
+  hintText: '',
   hintStyle: TextStyle(fontSize: getsizeHeight(16)),
   floatingLabelBehavior: FloatingLabelBehavior.always,
   contentPadding: EdgeInsets.symmetric(
@@ -57,7 +57,7 @@ final formEmailInputdecoration = InputDecoration(
   focusedBorder: outlineInputBorder1(),
   border: outlineInputBorder1(),
   labelText: "Email",
-  hintText: 'Peterson@gmail.com',
+  hintText: '',
   hintStyle: TextStyle(fontSize: getsizeHeight(16)),
   floatingLabelBehavior: FloatingLabelBehavior.always,
   contentPadding: EdgeInsets.symmetric(
@@ -69,7 +69,7 @@ final formPhoneNumberInputdecoration = InputDecoration(
   focusedBorder: outlineInputBorder1(),
   border: outlineInputBorder1(),
   labelText: "PhoneNumber",
-  hintText: '0989885082',
+  hintText: '',
   hintStyle: TextStyle(fontSize: getsizeHeight(16)),
   floatingLabelBehavior: FloatingLabelBehavior.always,
   contentPadding: EdgeInsets.symmetric(
@@ -81,7 +81,7 @@ final formBioInputdecoration = InputDecoration(
   focusedBorder: outlineInputBorder1(),
   border: outlineInputBorder1(),
   labelText: "Bio",
-  hintText: 'Bio by name',
+  hintText: '',
   hintStyle: TextStyle(fontSize: getsizeHeight(16)),
   floatingLabelBehavior: FloatingLabelBehavior.always,
   contentPadding: EdgeInsets.symmetric(

@@ -1,18 +1,16 @@
-import 'package:crudfirestore/screens/sign_in/components/sign_in_phone_screens.dart';
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:crudfirestore/services/auth_sevices.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../utils/app_palette.dart';
-import '../../../utils/constants.dart';
-import '../../../utils/sizeconfig.dart';
-import '../cubits/sign_in_cubit.dart';
+import '../utils/app_palette.dart';
+import '../utils/constants.dart';
+import '../utils/sizeconfig.dart';
+import '../widgets/app_textfield.dart';
 
-class LoginAccount extends StatelessWidget {
-  const LoginAccount({
-    Key? key,
-  }) : super(key: key);
+class SignGoogle extends StatelessWidget {
+  const SignGoogle({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +26,7 @@ class LoginAccount extends StatelessWidget {
             SizedBox(
               height: getsizeHeight(100),
             ),
-            Image.asset(
-              'assets/images/logoSlove.png',
-              height: getsizeHeight(130),
-              width: getsizeWidth(130),
-            ),
+        
             SizedBox(
               height: getsizeHeight(100),
             ),
@@ -40,8 +34,8 @@ class LoginAccount extends StatelessWidget {
               height: getsizeHeight(40),
             ),
             GestureDetector(
-              onTap: () {
-                context.read<SignInCubit>().signInWithGoogle();
+              onTap: () async{
+                await AuthSevice().signInWithGoogle();
               },
               child: Container(
                   margin: EdgeInsets.only(
@@ -108,10 +102,10 @@ class LoginAccount extends StatelessWidget {
             ),
             GestureDetector(
               onTap: (() {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SignInPhoneScreens()));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const SignInPhoneScreens()));
               }),
               child: Container(
                   margin: EdgeInsets.only(

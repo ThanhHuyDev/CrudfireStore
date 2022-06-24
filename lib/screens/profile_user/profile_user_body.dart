@@ -3,6 +3,7 @@ import 'package:crudfirestore/screens/sign_in/cubits/sign_in_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../blocs/authentication/authentication_bloc.dart';
+import '../../providers/authentication_provider.dart';
 import '../../utils/sizeconfig.dart';
 import '../../widgets/button_default.dart';
 import 'components/infomation_plan.dart';
@@ -138,8 +139,8 @@ class _BodyProfileUserState extends State<BodyProfileUser> {
                     height: getsizeHeight(20),
                   ),
                   ButtonDefault(
-                    press: () {
-                     
+                    press: () async{
+                     await AuthenticationProvider().signOut();
                     },
                     title: 'Logout',
                   ),

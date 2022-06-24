@@ -2,13 +2,14 @@ import 'package:crudfirestore/models/app_user.dart';
 import 'package:crudfirestore/providers/authentication_provider.dart';
 import 'package:crudfirestore/providers/base/base_authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationRepostory {
   final BaseAuthenticationProvider _authenticationProvider =
       AuthenticationProvider();
   Future<bool> isLoggedIn() => _authenticationProvider.isLoggedIn();
 
-  Future<User?> signInWithGoogle() =>
+  Future<GoogleSignInAccount?> signInWithGoogle() =>
       _authenticationProvider.signInWithGoogle();
 
   Future<void> sendOtp({

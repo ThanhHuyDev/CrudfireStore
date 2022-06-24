@@ -12,7 +12,6 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc(this._authenticationRepostory) : super(UnInitialized()) {
     on<IsAuthenticated>(_handleVerifyUserAuth);
-    on<IsLogout>(_handleIsLogout);
   }
   final AuthenticationRepostory _authenticationRepostory;
 
@@ -25,10 +24,5 @@ class AuthenticationBloc
     }else{
       emit(UnAuthenticated());
     }
-  }
-
-  FutureOr<void> _handleIsLogout(IsLogout event, Emitter<AuthenticationState> emit) async{
-    emit(UnAuthenticated());
-    return await _authenticationRepostory.signOut();
   }
 }

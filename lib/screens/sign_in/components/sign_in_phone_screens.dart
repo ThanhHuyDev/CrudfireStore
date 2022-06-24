@@ -116,7 +116,7 @@ class _SignInPhoneScreensState extends State<SignInPhoneScreens>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text('Profile update success...'),
-                      CircularProgressIndicator()
+                      Icon(Icons.check)
                     ],
                   )));
                 Navigator.pushReplacement(context,

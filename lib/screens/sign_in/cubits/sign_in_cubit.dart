@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../models/app_user.dart';
 import '../../../models/country.dart';
@@ -97,14 +98,14 @@ class SignInCubit extends Cubit<SignInState> {
   Future<void> signInWithGoogle() async {
     emit(state.copyWith(status: SignInStatus.authInProgress));
     try {
-      User? user = await _authenticationRepository.signInWithGoogle();
-      if (user != null) {
+      GoogleSignInAccount? account = await _authenticationRepository.signInWithGoogle();
+      if (account != null) {
         emit(state.copyWith(
-            status: SignInStatus.googleAuthenticated, user: user));
+            status: SignInStatus.googleAuthenticated, account: account));
       }
     } catch (e) {
       emit(state.copyWith(
-          status: SignInStatus.exception, error: e.toString(), user: null));
+          status: SignInStatus.exception, error: e.toString(), account: null));
     }
   }
 }
