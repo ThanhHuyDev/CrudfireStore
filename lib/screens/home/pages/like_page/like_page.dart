@@ -14,12 +14,14 @@ class _LikesPageState extends State<LikesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: getBody(),
     );
   }
 
   Widget getBody() {
     return ListView(
+      physics: const BouncingScrollPhysics(),
       padding: EdgeInsets.only(bottom: getsizeHeight(110)),
       children: [
         title_tabLikes(),

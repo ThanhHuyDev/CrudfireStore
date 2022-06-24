@@ -64,6 +64,18 @@ final formEmailInputdecoration = InputDecoration(
       horizontal: getsizeWidth(20), vertical: getsizeHeight(17)),
   labelStyle: TextStyle(fontSize: getsizeHeight(17)),
 );
+final formPhoneNumberInputdecoration = InputDecoration(
+  enabledBorder: outlineInputBorder1(),
+  focusedBorder: outlineInputBorder1(),
+  border: outlineInputBorder1(),
+  labelText: "PhoneNumber",
+  hintText: '0989885082',
+  hintStyle: TextStyle(fontSize: getsizeHeight(16)),
+  floatingLabelBehavior: FloatingLabelBehavior.always,
+  contentPadding: EdgeInsets.symmetric(
+      horizontal: getsizeWidth(20), vertical: getsizeHeight(17)),
+  labelStyle: TextStyle(fontSize: getsizeHeight(17)),
+);
 final formBioInputdecoration = InputDecoration(
   enabledBorder: outlineInputBorder1(),
   focusedBorder: outlineInputBorder1(),
@@ -108,16 +120,17 @@ OutlineInputBorder outlineInputBorder() {
 class AppPalette {
   AppPalette._();
   static const fontName = 'Muli';
-  static const Color primaryBlueColor = Color(0xFF8F94FB);
-  static const Color primaryBlueDart = Color.fromARGB(255, 75, 84, 250);
+  static const Color primaryDartColorText = Colors.black;
+  static const Color primaryColor = Colors.deepPurple;
+  static const Color primaryLightColorText = Colors.white;
   static final themeData = {
     AppTheme.lightBlueTheme: ThemeData(
         scaffoldBackgroundColor: Colors.grey[100],
         primarySwatch: Colors.blue,
-        backgroundColor: Colors.grey[100],
-        primaryColor: primaryBlueDart,
-        primaryColorDark: primaryBlueDart,
-        primaryColorLight: primaryBlueColor,
+        backgroundColor: Colors.white,
+        primaryColor: primaryColor,
+        primaryColorDark: primaryDartColorText,
+        primaryColorLight: primaryLightColorText,
         cardColor: Colors.white,
         shadowColor: HexColor('#ebf5ed'),
         fontFamily: fontName,
@@ -161,15 +174,15 @@ class AppPalette {
             .copyWith(
                 secondary: HexColor('#FBA308'),
                 secondaryVariant: HexColor('#fcb539'),
-                primary: primaryBlueDart,
-                primaryVariant: primaryBlueColor)),
+                primary: primaryColor,
+                primaryVariant: primaryColor)),
     AppTheme.dartBlueTheme: ThemeData(
-      scaffoldBackgroundColor: HexColor('#222736'),
+      scaffoldBackgroundColor: const Color.fromARGB(255, 37, 41, 53),
       primarySwatch: Colors.blue,
       backgroundColor: HexColor('#222736'),
-      primaryColor: primaryBlueDart,
-      primaryColorDark: primaryBlueDart,
-      primaryColorLight: primaryBlueColor,
+      primaryColor: primaryColor,
+      primaryColorDark: primaryLightColorText,
+      primaryColorLight: const Color.fromARGB(255, 21, 23, 29),
       cardColor: HexColor('#2a3042'),
       shadowColor: HexColor('#12263f'),
       fontFamily: fontName,
@@ -212,8 +225,8 @@ class AppPalette {
       colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(
         secondary: HexColor('#FBA308'),
         secondaryVariant: HexColor('#fcb539'),
-        primary: primaryBlueDart,
-        primaryVariant: primaryBlueColor,
+        primary: primaryColor,
+        primaryVariant: primaryColor,
       ),
     ),
   };

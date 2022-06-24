@@ -14,6 +14,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: getBody(),
     );
   }
@@ -21,12 +22,14 @@ class _ChatPageState extends State<ChatPage> {
   Widget getBody() {
     var size = MediaQuery.of(context).size;
     return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         title_Messenger(),
         SizedBox(
           height: getsizeHeight(6),
         ),
-        const Divider(
+        Divider(
+          color: Theme.of(context).primaryColorDark.withOpacity(0.25),
           thickness: 0.4,
         ),
         SizedBox(
@@ -272,12 +275,13 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget search_Messenger() {
     return Padding(
-      padding: EdgeInsets.only(left: getsizeWidth(10), right: getsizeWidth(10)),
+      padding: EdgeInsets.only(left: getsizeWidth(15), right: getsizeWidth(15)),
       child: Container(
-        height: getsizeHeight(45),
+        padding: EdgeInsets.only(top: getsizeHeight(2)),
+        height: getsizeHeight(50),
         decoration: BoxDecoration(
             color: Colors.grey.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(getsizeWidth(5))),
+            borderRadius: BorderRadius.circular(getsizeWidth(20))),
         child: TextField(
           style: TextStyle(fontSize: getsizeHeight(15)),
           cursorColor: Colors.black.withOpacity(0.5),
@@ -310,12 +314,12 @@ class _ChatPageState extends State<ChatPage> {
           Container(
             height: getsizeHeight(25),
             width: getsizeWidth(1),
-            decoration: BoxDecoration(color: Colors.black.withOpacity(0.15)),
+            decoration: BoxDecoration(color: Theme.of(context).primaryColorDark.withOpacity(0.25)),
           ),
           Text(
             "Matches",
             style: TextStyle(
-              color: Colors.black.withOpacity(0.5),
+              color: Theme.of(context).primaryColorDark.withOpacity(0.5),
               fontSize: getsizeHeight(18),
               fontWeight: FontWeight.bold,
             ),

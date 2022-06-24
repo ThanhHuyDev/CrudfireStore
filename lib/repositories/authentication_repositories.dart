@@ -38,4 +38,5 @@ class AuthenticationRepostory {
 
   Future<void> saveProfile(AppUser user) =>
       _authenticationProvider.saveProfile(user);
+  Future<void> signOut() => _authenticationProvider.signOut();
 }

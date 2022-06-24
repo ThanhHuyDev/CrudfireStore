@@ -1,18 +1,24 @@
 class AppUser {
-  final String? id, firstName, lastName, email, phoneNumber, imageAvatar, gender, bio;
+  final String? id, firstName, lastName, email, phoneNumber, adress, imageAvatar, gender, interestedgender, bio;
   final int? createDateTimeMillis, dateOfBirthTimeMillis;
+  final List<dynamic>? imageUrl;
+  final List<dynamic>? interests;
 
-  AppUser(
-      {this.id,
-      this.lastName,
-      this.firstName,
-      this.email,
-      this.phoneNumber,
-      this.imageAvatar,
-      this.createDateTimeMillis,
-      this.dateOfBirthTimeMillis,
-      this.gender,
-      this.bio});
+  AppUser({
+       this.id,
+       this.lastName,
+       this.firstName,
+       this.email,
+       this.phoneNumber,
+       this.adress,
+       this.imageAvatar,
+       this.createDateTimeMillis,
+       this.dateOfBirthTimeMillis,
+       this.gender,
+       this.interestedgender,
+       this.bio,
+       this.imageUrl,
+       this.interests});
   factory AppUser.fromJson(Map<String, dynamic> data) {
     return AppUser(
       id: data['id'],
@@ -20,10 +26,14 @@ class AppUser {
       lastName: data['lastName'],
       email: data['email'],
       phoneNumber: data['phoneNumber'],
+      adress: data['adress'],
       imageAvatar: data['imageAvatar'],
       createDateTimeMillis: data['createDateTimeMillis'],
       dateOfBirthTimeMillis: data['dateOfBirthTimeMillis'],
       gender: data['gender'],
+      interestedgender: data['interestedgender'],
+      imageUrl: data['imageUrl'],
+      interests: data['interests'],
       bio: data['bio'],
     );
   }
@@ -34,11 +44,15 @@ class AppUser {
       'lastName': lastName,
       'email': email,
       'phoneNumber': phoneNumber,
+      'adress': adress,
       'imageAvatar': imageAvatar,
       'createDateTimeMillis': createDateTimeMillis,
       'dateOfBirthTimeMillis': dateOfBirthTimeMillis,
       'gender': gender,
+      'interestedgender': interestedgender,
       'bio': bio,
+      'imageUrl': imageUrl,
+      'interests': interests,
     };
   }
 }

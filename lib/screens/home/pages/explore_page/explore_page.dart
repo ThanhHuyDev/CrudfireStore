@@ -15,6 +15,7 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: getBody(),
     );
   }

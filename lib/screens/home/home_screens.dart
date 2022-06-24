@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../utils/sizeconfig.dart';
+
 class HomeScreens extends StatefulWidget {
   HomeScreens({Key? key}) : super(key: key);
   @override
@@ -18,33 +19,71 @@ class _HomeScreensState extends State<HomeScreens> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: getAppBar(),
       body: getBody(),
+      resizeToAvoidBottomInset: false,
       bottomSheet: getFooter(),
     );
   }
-  
-  IndexedStack getBody() {
-    return IndexedStack(
-      index: pageIndex,
-      children: const [
-        ExplorePage(),
-        LikesPage(),
-        ChatPage(),
-        ChatPage(),
-        AccountPage(),
-      ],
+
+  SafeArea getBody() {
+    return SafeArea(
+      child: Column(
+        children: [
+          getAppbar(),
+          Expanded(
+            child: IndexedStack(
+              index: pageIndex,
+              children: const [
+                ExplorePage(),
+                LikesPage(),
+                ChatPage(),
+                AccountPage(),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  AppBar getAppBar() {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0.0,
-      centerTitle: true,
-      title: Image.asset('assets/images/logo_slove_black.png', height: getsizeHeight(140)),
-      actions: [IconButton(onPressed: (){}, icon: Icon(Icons.filter_alt_outlined,size: getsizeHeight(28),color: Colors.deepPurple,))],
+  Container getAppbar() {
+    return Container(
+      width: double.infinity,
+      height: 60,
+      margin: const EdgeInsets.only(bottom: 0.4),
+      decoration: BoxDecoration(
+        color: Theme.of(context).backgroundColor,
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey.withOpacity(0.8),
+              blurRadius: 5,
+              spreadRadius: 1,
+              offset: const Offset(0, 0.75)),
+        ],
+      ),
+      child: Stack(
+        children: [
+          Center(
+            child: SizedBox(
+              height: 45,
+              child: Image.asset(
+                'assets/images/logo_slove_small.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned(
+              top: 5,
+              right: 5,
+              child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.filter_alt_outlined,
+                    size: getsizeHeight(30),
+                    color: Colors.deepPurple,
+                  )))
+        ],
+      ),
     );
   }
 
@@ -60,18 +99,25 @@ class _HomeScreensState extends State<HomeScreens> {
           ? "assets/images/chat_active_icon.svg"
           : "assets/images/chat_icon.svg",
       pageIndex == 3
-          ? "assets/images/chat_active_icon.svg"
-          : "assets/images/chat_icon.svg",
-      pageIndex == 4
           ? "assets/images/account_active_icon.svg"
           : "assets/images/account_icon.svg",
     ];
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: Theme.of(context).backgroundColor,
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey.withOpacity(0.8),
+              blurRadius: 5,
+              spreadRadius: 2,
+              offset: const Offset(4, 4)),
+        ],
+      ),
       width: SizeConfig.screenWidth,
       height: getsizeHeight(55),
       child: Padding(
-        padding: EdgeInsets.only(left: getsizeWidth(10), right: getsizeWidth(10)),
+        padding:
+            EdgeInsets.only(left: getsizeWidth(10), right: getsizeWidth(10)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(bottomItems.length, (index) {

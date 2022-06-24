@@ -97,23 +97,24 @@ class _SignInScreensState extends State<SignInScreens>
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(SnackBar(
+                    backgroundColor: Colors.green,
                       content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text('Profile update success...'),
-                      CircularProgressIndicator()
+                      Icon(Icons.check)
                     ],
                   )));
+                  Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => HomeScreens()));
               }
-              // Navigator.pushReplacement(context,
-              //     MaterialPageRoute(builder: (context) => const HomeScreens()));
             },
             child: TabBarView(
               controller: _tabController,
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 const LoginAccount(),
-                HomeScreens(),
+                SetupProfileScreen(),
               ],
             ),
           ),

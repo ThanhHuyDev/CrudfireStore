@@ -43,10 +43,10 @@ class _TinderCardState extends State<TinderCard> {
                                 BorderRadius.circular(getsizeWidth(10)),
                             boxShadow: [
                               BoxShadow(
-                                  color: Colors.grey.withOpacity(0.8),
+                                  color: Colors.grey.withOpacity(0.4),
                                   blurRadius: 5,
                                   spreadRadius: 2,
-                                  offset: const Offset(4, 4)),
+                                  offset: const Offset(3, 3)),
                             ],
                           ),
                           child: ClipRRect(

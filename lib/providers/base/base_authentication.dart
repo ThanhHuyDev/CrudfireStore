@@ -21,4 +21,8 @@ abstract class BaseAuthenticationProvider {
   Future<User?> signInWithCredential(AuthCredential credential);
 
   Future<void>saveProfile(AppUser user);
+
+  Future<void> signOut();
+  Future<void> updateUserPicture(String imageName);
+  Future<void> updateUserAvatar(String imageName);
 }

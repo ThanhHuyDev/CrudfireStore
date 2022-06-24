@@ -37,8 +37,6 @@ class _VerifyPhoneState extends State<VerifyPhone> {
       child: SingleChildScrollView(
          physics: const BouncingScrollPhysics(),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
             _buildHeader(themeData, context),
@@ -99,7 +97,7 @@ class _VerifyPhoneState extends State<VerifyPhone> {
           child: Text(
             'resend code',
             style: themeData.textTheme.subtitle1
-                ?.copyWith(color: themeData.primaryColorLight),
+                ?.copyWith(color: themeData.primaryColorDark,fontSize: 16),
           ),
         ),
       ],
@@ -116,11 +114,13 @@ class _VerifyPhoneState extends State<VerifyPhone> {
             color: themeData.primaryColor,
           ),
         ),
-        const SizedBox(width: 10),
-        Text(
-          'Verify Otp',
-          style: themeData.textTheme.headline1
-              ?.copyWith(color: themeData.primaryColor),
+        const SizedBox(width: 30),
+        Center(
+          child: Text(
+            'Verify Otp',
+            style: themeData.textTheme.headline1
+                ?.copyWith(color: themeData.primaryColor),
+          ),
         ),
       ],
     );
@@ -220,7 +220,7 @@ class _VerifyPhoneState extends State<VerifyPhone> {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Enter the verification code sent to',
+                    text: 'Enter the verification code sent to ',
                     style: themeData.textTheme.bodyText1?.copyWith(
                       color:
                           themeData.textTheme.bodyText1?.color?.withOpacity(.7),
@@ -230,7 +230,7 @@ class _VerifyPhoneState extends State<VerifyPhone> {
                   TextSpan(
                     text: '+84${state.phoneNumber}',
                     style: themeData.textTheme.bodyText1?.copyWith(
-                      color: themeData.primaryColorLight.withOpacity(.7),
+                      color: themeData.primaryColorDark.withOpacity(.7),
                       fontSize: 15.0,
                     ),
                   ),
@@ -251,7 +251,7 @@ Widget buildTimer() {
     children: [
       Text(
         "This code will expired in ",
-        style: TextStyle(fontFamily: "Muli", fontSize: getsizeHeight(16)),
+        style: TextStyle(fontFamily: "Muli", fontSize: getsizeHeight(15)),
       ),
       TweenAnimationBuilder(
         tween: Tween(begin: 30.0, end: 0.0),
@@ -259,9 +259,9 @@ Widget buildTimer() {
         builder: (_, dynamic value, child) => Text(
           "00:${value.toInt()}",
           style: TextStyle(
-              color: Colors.orange,
+              color: Colors.deepPurple,
               fontFamily: "Muli",
-              fontSize: getsizeHeight(16)),
+              fontSize: getsizeHeight(15)),
         ),
       ),
     ],

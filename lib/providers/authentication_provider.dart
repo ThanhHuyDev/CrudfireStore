@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crudfirestore/models/app_user.dart';
 import 'package:crudfirestore/providers/base/base_authentication.dart';
+import 'package:crudfirestore/screens/sign_in/storage/storage_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -68,14 +69,41 @@ class AuthenticationProvider extends BaseAuthenticationProvider {
 
   @override
   Future<void> saveProfile(AppUser user) {
+    final firebaseUser = _firebaseAuth.currentUser;
     return FirebaseFirestore.instance
         .collection('users')
-        .doc(user.id)
+        .doc(firebaseUser?.uid)
         .set(user.toJson(), SetOptions(merge: true))
         .then((value) async {
       final SharedPreferences _preferences =
           await SharedPreferences.getInstance();
-      _preferences.setString('userId', user.id ?? '');
+      _preferences.setString('userId', firebaseUser?.uid ?? '');
     });
+  }
+  
+  @override
+  Future<void> signOut() async {
+    return await _firebaseAuth.signOut();
+  }
+  
+  @override
+  Future<void> updateUserPicture(String imageName) async{
+    String downloadUrl = await StorageRepository().getDownloadURL(imageName);
+    final firebaseUser = _firebaseAuth.currentUser;
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(firebaseUser?.uid)
+        .update({'imageUrl': FieldValue.arrayUnion([downloadUrl]),
+        });
+  }
+  @override
+  Future<void> updateUserAvatar(String imageAvatar) async{
+    String downloadUrlAvatar = await StorageRepository().getDownloadURLAvatar(imageAvatar);
+    final firebaseUser = _firebaseAuth.currentUser;
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(firebaseUser?.uid)
+        .update({'imageAvatar': downloadUrlAvatar,
+        });
   }
 }

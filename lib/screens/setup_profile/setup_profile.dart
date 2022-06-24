@@ -1,14 +1,19 @@
 import 'dart:io';
 import 'package:crudfirestore/screens/sign_in/cubits/sign_in_cubit.dart';
 import 'package:crudfirestore/widgets/button_default.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../models/app_user.dart';
 import '../../utils/app_palette.dart';
 import '../../utils/constants.dart';
 import '../../utils/helpers.dart';
 import '../../utils/sizeconfig.dart';
 import '../../widgets/avatar.dart';
+import '../sign_in/storage/storage_repository.dart';
 
 class SetupProfileScreen extends StatefulWidget {
   SetupProfileScreen({Key? key}) : super(key: key);
@@ -20,11 +25,11 @@ class SetupProfileScreen extends StatefulWidget {
 class _SetupProfileScreenState extends State<SetupProfileScreen> {
   File? image;
   String? photoUrl =
-      'http://chiase24.com/wp-content/uploads/2022/02/Tong-hop-hinh-anh-gai-xinh-de-thuong-cute-nhat-1.jpg';
+      'https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg';
 
   List gender = ["male", "female"];
 
-  String? selectedGender;
+  String? selectedGender, selectedIntertedgender;
 
   bool isLoading = false;
 
@@ -39,6 +44,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
+  final phoneNumberController = TextEditingController();
   final bioController = TextEditingController();
 
   @override
@@ -55,6 +61,8 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
     lastNameController.text = nameSplit.join(' ');
     emailController.text =
         context.read<SignInCubit>().state.user?.email ?? '';
+    emailController.text =
+        context.read<SignInCubit>().state.user?.phoneNumber ?? '';
     photoUrl = context.read<SignInCubit>().state.user?.photoURL ?? '';
     // dateOfBithController.text = context.read<SignInCubit>().state.account?.
   }
@@ -74,6 +82,34 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
       });
     }
   }
+  XFile? file;
+  ImagePicker? picker;
+  Future selectGalery()async{
+    picker = ImagePicker();
+    final result = await picker?.pickImage(source: ImageSource.gallery);
+    if(result==null) return;
+    setState(() {
+      file = result;
+    });
+  }
+  // PlatformFile? pickedFile;
+  // UploadTask? uploadTask;
+  // Future uploadFile()async{
+  //   final path ='files/${pickedFile!.name}';
+  //   final file = File(pickedFile!.path!);
+  //   final ref = FirebaseStorage.instance.ref().child(path);
+  //   setState(() {
+  //      uploadTask = ref.putFile(file);
+  //   });
+   
+
+  //   final snapshot = await uploadTask!.whenComplete(() {});
+  //   final urlDownload = await snapshot.ref.getDownloadURL();
+  //   print('download link : $urlDownload');
+  //   setState(() {
+  //     uploadTask = null;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +156,15 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
               child: TextFormField(
                 decoration: formEmailInputdecoration,
                 controller: emailController,
+              ),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: getsizeHeight(60),
+              child: TextFormField(
+                decoration: formPhoneNumberInputdecoration,
+                controller: phoneNumberController,
               ),
             ),
             const SizedBox(height: 20),
@@ -185,21 +230,49 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
               ],
             ),
             const SizedBox(height: 20),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Interested',
+                  style: Theme.of(context).textTheme.subtitle1?.copyWith(),
+                ),
+                //Use the above widget where you want the radio button
+                SizedBox(
+                  height: 50,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      addRadioButtonInter(0, 'male', context),
+                      addRadioButtonInter(1, 'female', context),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(height: 20),
             ButtonDefault(
-              press: (() {
-                String userId =
-                    '+84${context.read<SignInCubit>().state.phoneNumber}';
-                userId.replaceAll(' ', '');
+              press: (() async{
+                final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+                final String uid = _firebaseAuth.currentUser!.uid;
+                if(file == null){
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No image selected')));
+                }
+                if(file !=null){
+                  print('uploading..');
+                  StorageRepository().uploadImageAvatar(file!);  
+                }
                 AppUser user = AppUser(
+                  id: uid,
                   firstName: firstNameController.text,
                   lastName: lastNameController.text,
                   email: emailController.text,
                   dateOfBirthTimeMillis: dateOfBirth?.year,
                   imageAvatar: photoUrl,
-                  phoneNumber: context.read<SignInCubit>().state.phoneNumber,
+                  phoneNumber: phoneNumberController.text,
                   bio: bioController.text,
                   gender: selectedGender,
-                  id: userId,
+                  interestedgender: selectedIntertedgender,
                   createDateTimeMillis: DateTime.now().millisecondsSinceEpoch,
                 );
                 context.read<SignInCubit>().saveUserProfile(user);
@@ -238,11 +311,14 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
         Stack(
           clipBehavior: Clip.none,
           children: [
+            (file!=null) ?
             Avatar(
               size: 110,
-              photoUrl: photoUrl ??
-                  'https://scontent.fdad5-1.fna.fbcdn.net/v/t39.30808-6/285999843_3163315347222459_2748449376631489930_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=4Rnw1kjdkIsAX-e41LJ&_nc_ht=scontent.fdad5-1.fna&oh=00_AT8GoDsWq-cO0rIJNgH6-4Y77A3O6DeXtKMANlLk0bHZRQ&oe=62B5AEC4g',
-            ),
+              imageFile: File(file!.path),
+            ) : Avatar(
+              size: 110,
+              photoUrl: photoUrl,
+            ) ,
             Positioned(
               bottom: -4,
               right: -4,
@@ -262,7 +338,9 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                   color: Colors.deepPurple,
                   clipBehavior: Clip.hardEdge,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      selectGalery();
+                    },
                     borderRadius: BorderRadius.circular(100),
                     child: const Icon(
                       Icons.camera_alt_outlined,
@@ -289,6 +367,29 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
           onChanged: (value) {
             setState(() {
               selectedGender = value;
+            });
+          },
+        ),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                fontSize: 14.0,
+              ),
+        )
+      ],
+    );
+  }
+  Row addRadioButtonInter(int btnValue, String title, BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Radio<String>(
+          activeColor: Theme.of(context).colorScheme.secondary,
+          value: gender[btnValue],
+          groupValue: selectedIntertedgender,
+          onChanged: (value) {
+            setState(() {
+              selectedIntertedgender = value;
             });
           },
         ),

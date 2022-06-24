@@ -42,9 +42,9 @@ class StackInfomation extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             //height: 1000,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
               ),
@@ -167,11 +167,11 @@ class NameInfo extends StatelessWidget {
             children: [
               Text(
                 documentSnapshot['firstName'] + " " + documentSnapshot['dateOfBirthTimeMillis'].toString(),
-                style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),
+                style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 24.0, fontWeight: FontWeight.w700),
               ),
-              const Text(
+              Text(
                 'Proffesional model',
-                style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),
+                style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 14.0, fontWeight: FontWeight.w500),
               )
             ],
           ),
@@ -180,7 +180,11 @@ class NameInfo extends StatelessWidget {
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(15.0)),
-            child: Image.asset('images/vector4.png'),
+            child: const Padding(
+              
+              padding: EdgeInsets.only(left: 3),
+              child: Icon(Icons.send_rounded,color: Colors.deepPurple,),
+            ),
           ),
         ],
       ),
@@ -202,14 +206,14 @@ class Location extends StatelessWidget {
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 'Location',
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),
+                style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 24.0, fontWeight: FontWeight.w700),
               ),
               Text(
                 'Chicago, IL United States',
-                style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),
+                style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 14.0, fontWeight: FontWeight.w500),
               )
             ],
           ),
@@ -251,23 +255,24 @@ class About extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text(
             'About',
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),
+            style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 24.0, fontWeight: FontWeight.w700),
           ),
           ReadMoreText(
             'My name is Jessica Parker and I enjoy meeting new people and finding ways to help them have an uplifting experience. I enjoy reading... My name is Jessica Parker and I enjoy meeting new people and finding ways to help them have an uplifting experience. I enjoy reading..',
             style: TextStyle(
+              color: Theme.of(context).primaryColorDark,
               fontSize: 14.0,
               fontWeight: FontWeight.w500,
             ),
             trimLines: 3,
-            colorClickableText: Color(0xffA020F0),
+            colorClickableText: const Color(0xffA020F0),
             trimMode: TrimMode.Line,
             trimCollapsedText: 'Show more',
             trimExpandedText: 'Show less',
-            moreStyle: TextStyle(
+            moreStyle: const TextStyle(
                 fontSize: 14.0,
                 fontWeight: FontWeight.w500,
                 color: Color(0xffA020F0)),
@@ -291,12 +296,12 @@ class Gallery extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 'Gallery',
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),
+                style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 24.0, fontWeight: FontWeight.w700),
               ),
-              Text(
+              const Text(
                 'see all',
                 style: TextStyle(
                     fontSize: 16.0,
@@ -344,9 +349,9 @@ class Interests extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+           Text(
             'Interests',
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),
+            style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 24.0, fontWeight: FontWeight.w700),
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -366,7 +371,7 @@ class Interests extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Colors.black)),
-                  child: const Text('Traveller'),
+                  child: Text('Traveller',style: TextStyle(color: Theme.of(context).primaryColorDark),),
                 );
               },
               itemCount: 5,

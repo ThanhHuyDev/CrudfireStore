@@ -69,7 +69,7 @@ class Avatar extends StatelessWidget {
                     : Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Image.asset(
-                          placeholder ?? 'assets/images/account.png',
+                          placeholder ?? 'assets/images/profile.png',
                           width: size,
                           height: size,
                           fit: BoxFit.cover,

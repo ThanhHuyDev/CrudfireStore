@@ -106,7 +106,7 @@ class PhoneAuthView extends StatelessWidget {
             style: themeData.textTheme.subtitle2?.copyWith(
               fontWeight: FontWeight.w500,
               fontSize: 13.0,
-              color: themeData.primaryColorLight,
+              color: themeData.primaryColor,
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
@@ -125,7 +125,7 @@ class PhoneAuthView extends StatelessWidget {
             style: themeData.textTheme.subtitle2?.copyWith(
               fontWeight: FontWeight.w500,
               fontSize: 13.0,
-              color: themeData.primaryColorLight,
+              color: themeData.primaryColor,
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
