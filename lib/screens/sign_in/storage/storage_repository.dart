@@ -14,7 +14,7 @@ class StorageRepository extends BaseStorageRepository {
   Future<void> uploadImage(XFile image) async {
     try {
       await storage
-          .ref('user_1/${image.name}')
+          .ref('user_image/${image.name}')
           .putFile(File(image.path))
           .then((p0) => AuthenticationProvider().updateUserPicture(image.name));
     } catch (_) {}
@@ -23,7 +23,7 @@ class StorageRepository extends BaseStorageRepository {
   @override
   Future<String> getDownloadURL(String imageName) async {
     String downloadURL =
-        await storage.ref('user_1/${imageName}').getDownloadURL();
+        await storage.ref('user_image/${imageName}').getDownloadURL();
     return downloadURL;
   }
 
@@ -31,7 +31,7 @@ class StorageRepository extends BaseStorageRepository {
   Future<void> uploadImageAvatar(XFile imageAvatar) async {
     try {
       await storage
-          .ref('user_1_avatar/${imageAvatar.name}')
+          .ref('user_avatar/${imageAvatar.name}')
           .putFile(File(imageAvatar.path))
           .then((p0) => AuthenticationProvider().updateUserAvatar(imageAvatar.name));
     } catch (_) {}
@@ -40,7 +40,7 @@ class StorageRepository extends BaseStorageRepository {
   @override
   Future<String> getDownloadURLAvatar(String imageAvatar) async {
     String downloadURLAvatar =
-        await storage.ref('user_1_avatar/${imageAvatar}').getDownloadURL();
+        await storage.ref('user_avatar/${imageAvatar}').getDownloadURL();
     return downloadURLAvatar;
   }
 }

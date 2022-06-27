@@ -1,39 +1,52 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crudfirestore/screens/home/home_screens.dart';
+import 'package:crudfirestore/utils/app_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
+
+import '../chat_page/components/chat_message_page.dart';
+import 'components/onloading_profile_screen.dart';
+
 class ProfileFriend extends StatefulWidget {
-  const ProfileFriend({Key? key, required this.documentSnapshot}) : super(key: key);
+  const ProfileFriend({Key? key, required this.documentSnapshot})
+      : super(key: key);
   final DocumentSnapshot documentSnapshot;
 
   @override
-  State<ProfileFriend> createState() => _ProfileFriendState(documentSnapshot: documentSnapshot);
+  State<ProfileFriend> createState() =>
+      _ProfileFriendState(documentSnapshot: documentSnapshot);
 }
 
 class _ProfileFriendState extends State<ProfileFriend> {
-   final DocumentSnapshot documentSnapshot;
-   _ProfileFriendState({required this.documentSnapshot});
+  final DocumentSnapshot documentSnapshot;
+  _ProfileFriendState({required this.documentSnapshot});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Stack(
-          children: [
-            Image.network(documentSnapshot['imageAvatar']),
-            StackInfomation(documentSnapshot: documentSnapshot)
-          ],
-        ),
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Image.network(documentSnapshot['imageAvatar'],fit: BoxFit.cover,)),
+              StackInfomation(documentSnapshot: documentSnapshot)
+            ],
+          ),
       ),
     );
   }
 }
 
 class StackInfomation extends StatelessWidget {
-  const StackInfomation({Key? key, required this.documentSnapshot}) : super(key: key);
+  const StackInfomation({Key? key, required this.documentSnapshot})
+      : super(key: key);
   final DocumentSnapshot documentSnapshot;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+       physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
           SizedBox(
@@ -43,13 +56,14 @@ class StackInfomation extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             //height: 1000,
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
               ),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //Container icon
                 const ButtonInfo(),
@@ -58,11 +72,15 @@ class StackInfomation extends StatelessWidget {
                 //Container Location
                 const Location(),
                 //Container About
-                const About(),
+                About(
+                  documentSnapshot: documentSnapshot,
+                ),
                 //Container Interests
                 const Interests(),
                 //Container Gallery
-                Gallery(documentSnapshot: documentSnapshot,),
+                Gallery(
+                  documentSnapshot: documentSnapshot,
+                ),
               ],
             ),
           ),
@@ -86,11 +104,10 @@ class ButtonInfo extends StatelessWidget {
         children: [
           //Button 1
           InkWell(
-            onTap: (() => {
-              Navigator.pop(context)
-            }),
+            onTap: (() => {Navigator.pop(context)}),
             child: Container(
-              padding: const EdgeInsets.only(left: 28,top: 18,bottom: 18,right: 18),
+              padding: const EdgeInsets.only(
+                  left: 28, top: 18, bottom: 18, right: 18),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
@@ -103,7 +120,8 @@ class ButtonInfo extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const Icon(Icons.arrow_back_ios,color: Colors.orange,size: 30),
+              child: const Icon(Icons.arrow_back_ios,
+                  color: Colors.orange, size: 30),
             ),
           ),
           //Button 2
@@ -123,14 +141,22 @@ class ButtonInfo extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const Icon(Icons.favorite,color: Colors.white,size: 35,),
+              child: const Icon(
+                Icons.favorite,
+                color: Colors.white,
+                size: 35,
+              ),
             ),
           ),
           //Button 3
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const MessengerScreen()));
+            },
             child: Container(
-             padding: const EdgeInsets.only(left: 18,top: 18,bottom: 18,right: 18),
+              padding: const EdgeInsets.only(
+                  left: 18, top: 18, bottom: 18, right: 18),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
@@ -143,7 +169,11 @@ class ButtonInfo extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const Icon(Icons.message,color: Colors.deepPurple,size: 30,),
+              child: const Icon(
+                Icons.message,
+                color: Colors.deepPurple,
+                size: 30,
+              ),
             ),
           ),
         ],
@@ -158,7 +188,7 @@ class NameInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -166,12 +196,20 @@ class NameInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                documentSnapshot['firstName'] + " " + documentSnapshot['dateOfBirthTimeMillis'].toString(),
-                style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 24.0, fontWeight: FontWeight.w700),
+                documentSnapshot['firstName'] +
+                    ", " +
+                    documentSnapshot['dateOfBirthTimeMillis'].toString(),
+                style: TextStyle(
+                    color: Theme.of(context).primaryColorDark,
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w700),
               ),
               Text(
-                'Proffesional model',
-                style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 14.0, fontWeight: FontWeight.w500),
+                'Student',
+                style: TextStyle(
+                    color: Theme.of(context).primaryColorDark,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w500),
               )
             ],
           ),
@@ -181,9 +219,11 @@ class NameInfo extends StatelessWidget {
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(15.0)),
             child: const Padding(
-              
               padding: EdgeInsets.only(left: 3),
-              child: Icon(Icons.send_rounded,color: Colors.deepPurple,),
+              child: Icon(
+                Icons.send_rounded,
+                color: Colors.deepPurple,
+              ),
             ),
           ),
         ],
@@ -200,7 +240,7 @@ class Location extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -208,12 +248,18 @@ class Location extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Location',
-                style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 24.0, fontWeight: FontWeight.w700),
+                'Adress',
+                style: TextStyle(
+                    color: Theme.of(context).primaryColorDark,
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w700),
               ),
               Text(
-                'Chicago, IL United States',
-                style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 14.0, fontWeight: FontWeight.w500),
+                'Da Nang',
+                style: TextStyle(
+                    color: Theme.of(context).primaryColorDark,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w500),
               )
             ],
           ),
@@ -245,29 +291,31 @@ class Location extends StatelessWidget {
 }
 
 class About extends StatelessWidget {
-  const About({
-    Key? key,
-  }) : super(key: key);
+  const About({Key? key, required this.documentSnapshot}) : super(key: key);
+  final DocumentSnapshot documentSnapshot;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 14.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'About',
-            style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 24.0, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                color: Theme.of(context).primaryColorDark,
+                fontSize: 22.0,
+                fontWeight: FontWeight.w700),
           ),
           ReadMoreText(
-            'My name is Jessica Parker and I enjoy meeting new people and finding ways to help them have an uplifting experience. I enjoy reading... My name is Jessica Parker and I enjoy meeting new people and finding ways to help them have an uplifting experience. I enjoy reading..',
+            documentSnapshot['bio'],
             style: TextStyle(
               color: Theme.of(context).primaryColorDark,
               fontSize: 14.0,
               fontWeight: FontWeight.w500,
             ),
-            trimLines: 3,
+            trimLines: 2,
             colorClickableText: const Color(0xffA020F0),
             trimMode: TrimMode.Line,
             trimCollapsedText: 'Show more',
@@ -290,7 +338,7 @@ class Gallery extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 40.0,
+        horizontal: 30.0,
       ),
       child: Column(
         children: [
@@ -299,14 +347,27 @@ class Gallery extends StatelessWidget {
             children: [
               Text(
                 'Gallery',
-                style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 24.0, fontWeight: FontWeight.w700),
-              ),
-              const Text(
-                'see all',
                 style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xffA020F0)),
+                    color: Theme.of(context).primaryColorDark,
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w700),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OnboardingProfileScreen(
+                                documentSnapshot: documentSnapshot,
+                              )));
+                },
+                child: const Text(
+                  'see all',
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xffA020F0)),
+                ),
               ),
             ],
           ),
@@ -345,13 +406,16 @@ class Interests extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 14.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Text(
+          Text(
             'Interests',
-            style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 24.0, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                color: Theme.of(context).primaryColorDark,
+                fontSize: 22.0,
+                fontWeight: FontWeight.w700),
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -369,9 +433,13 @@ class Interests extends StatelessWidget {
                   height: 30.0,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
+                      gradient: kPrimaryGradientLeftToRightColor,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Colors.black)),
-                  child: Text('Traveller',style: TextStyle(color: Theme.of(context).primaryColorDark),),
+                  child: const Text(
+                    'Traveller',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 );
               },
               itemCount: 5,

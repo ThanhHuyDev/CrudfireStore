@@ -14,22 +14,22 @@ class Slider {
 
 final sliderArrayList = [
   Slider(
-      sliderImageUrl: 'assets/images/slider_image.png',
+      sliderImageUrl: 'assets/images/girls/img_10.jpeg',
       sliderHeading: 'Slider Heading',
       sliderSubHeading: 'Slider view1',
       skipBtn: 'skip'),
   Slider(
-      sliderImageUrl: 'assets/images/slider_image.png',
+      sliderImageUrl: 'assets/images/girls/img_10.jpeg',
       sliderHeading: 'Slider Heading',
       sliderSubHeading: 'Slider view2',
       skipBtn: 'skip'),
   Slider(
-      sliderImageUrl: 'assets/images/slider_image.png',
+      sliderImageUrl: 'assets/images/girls/img_10.jpeg',
       sliderHeading: 'Slider Heading',
       sliderSubHeading: 'Slider view3',
       skipBtn: 'skip'),
   Slider(
-      sliderImageUrl: 'assets/images/slider_image.png',
+      sliderImageUrl: 'assets/images/girls/img_10.jpeg',
       sliderHeading: 'Slider Heading',
       sliderSubHeading: 'Slider view4',
       skipBtn: 'skip'),

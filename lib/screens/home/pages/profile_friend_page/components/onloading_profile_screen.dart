@@ -1,12 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../models/slider.dart';
 
 class OnboardingProfileScreen extends StatefulWidget {
-  const OnboardingProfileScreen({Key? key}) : super(key: key);
+  const OnboardingProfileScreen({Key? key,required this.documentSnapshot}) : super(key: key);
+    final DocumentSnapshot documentSnapshot;
 
   @override
-  State<OnboardingProfileScreen> createState() => _OnboardingScreenState();
+  State<OnboardingProfileScreen> createState() => _OnboardingScreenState(documentSnapshot: documentSnapshot);
 }
 
 class _OnboardingScreenState extends State<OnboardingProfileScreen> {
@@ -31,12 +33,14 @@ class _OnboardingScreenState extends State<OnboardingProfileScreen> {
   }
 
   bool inFinalPage() {
-    if (_currentPage == sliderArrayList.length - 1) {
+    if (_currentPage == 5 - 1) {
       return true;
     } else {
       return false;
     }
   }
+   final DocumentSnapshot documentSnapshot;
+   _OnboardingScreenState({required this.documentSnapshot});
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +58,13 @@ class _OnboardingScreenState extends State<OnboardingProfileScreen> {
                   scrollDirection: Axis.horizontal,
                   controller: _pagecontroller,
                   onPageChanged: _onPageChanged,
-                  itemCount: sliderArrayList.length,
+                  itemCount: 5,
                   itemBuilder: (ctx, i) {
                     return Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.fitHeight,
-                          image: AssetImage(sliderArrayList[i].sliderImageUrl),
+                          image: NetworkImage(documentSnapshot['imageAvatar']),
                         ),
                       ),
                     );
@@ -74,7 +78,7 @@ class _OnboardingScreenState extends State<OnboardingProfileScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    for (int i = 0; i < sliderArrayList.length; i++)
+                    for (int i = 0; i < 5; i++)
                       if (i == _currentPage)
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 150),
@@ -84,8 +88,8 @@ class _OnboardingScreenState extends State<OnboardingProfileScreen> {
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage(
-                                sliderArrayList[i].sliderImageUrl,
+                              image: NetworkImage(
+                                documentSnapshot['imageAvatar'],
                               ),
                             ),
                             borderRadius: const BorderRadius.all(
@@ -103,8 +107,8 @@ class _OnboardingScreenState extends State<OnboardingProfileScreen> {
                             image: DecorationImage(
                                 opacity: 0.3,
                                 fit: BoxFit.cover,
-                                image: AssetImage(
-                                    sliderArrayList[i].sliderImageUrl)),
+                                image: NetworkImage (
+                                    documentSnapshot['imageAvatar'])),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(12),
                             ),
@@ -114,7 +118,9 @@ class _OnboardingScreenState extends State<OnboardingProfileScreen> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context);
+                },
                 child: Container(
                   padding: const EdgeInsets.all(20.0),
                   margin: const EdgeInsets.all(30.0),

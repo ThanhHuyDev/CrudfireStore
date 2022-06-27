@@ -1,5 +1,5 @@
 class AppUser {
-  final String? id, firstName, lastName, email, phoneNumber, adress, imageAvatar, gender, interestedgender, bio;
+  final String? id, firstName, lastName, email, phoneNumber, adress, job, imageAvatar, gender, interestedgender, bio;
   final int? createDateTimeMillis, dateOfBirthTimeMillis;
   final List<dynamic>? imageUrl;
   final List<dynamic>? interests;
@@ -11,6 +11,7 @@ class AppUser {
        this.email,
        this.phoneNumber,
        this.adress,
+       this.job,
        this.imageAvatar,
        this.createDateTimeMillis,
        this.dateOfBirthTimeMillis,
@@ -27,6 +28,7 @@ class AppUser {
       email: data['email'],
       phoneNumber: data['phoneNumber'],
       adress: data['adress'],
+      job: data['job'],
       imageAvatar: data['imageAvatar'],
       createDateTimeMillis: data['createDateTimeMillis'],
       dateOfBirthTimeMillis: data['dateOfBirthTimeMillis'],
@@ -45,6 +47,7 @@ class AppUser {
       'email': email,
       'phoneNumber': phoneNumber,
       'adress': adress,
+      'job': job,
       'imageAvatar': imageAvatar,
       'createDateTimeMillis': createDateTimeMillis,
       'dateOfBirthTimeMillis': dateOfBirthTimeMillis,
